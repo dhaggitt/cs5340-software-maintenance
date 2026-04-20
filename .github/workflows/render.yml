@@ -17,6 +17,7 @@ jobs:
 
       - name: Render diagrams
         run: |
+          mkdir -p exports/png exports/svg
           find diagrams -name "*.puml" -exec plantuml -tpng -o ../exports/png {} \;
           find diagrams -name "*.puml" -exec plantuml -tsvg -o ../exports/svg {} \;
 
