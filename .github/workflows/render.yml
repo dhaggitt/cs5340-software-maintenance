@@ -1,0 +1,29 @@
+name: Render UML
+
+on:
+  push:
+    paths:
+      - '**.puml'
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install PlantUML
+        run: sudo apt-get install -y plantuml graphviz
+
+      - name: Render diagrams
+        run: |
+          find diagrams -name "*.puml" -exec plantuml -tpng -o ../exports/png {} \;
+          find diagrams -name "*.puml" -exec plantuml -tsvg -o ../exports/svg {} \;
+
+      - name: Commit generated diagrams
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add exports/
+          git commit -m "Auto-render diagrams" || echo "No changes"
+          git push

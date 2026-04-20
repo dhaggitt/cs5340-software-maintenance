@@ -1,0 +1,24 @@
+@startuml Arm Firmware
+package "EDK II ARM Firmware" {
+
+  [ArmPkg] --> [MdePkg]
+  [ArmPkg] --> [MdeModulePkg]
+
+  [ArmPlatformPkg] --> [ArmPkg]
+  [ArmPlatformPkg] --> [MdePkg]
+
+  [SiliconPkg / SoCPkg] --> [ArmPlatformPkg]
+  [SiliconPkg / SoCPkg] --> [ArmPkg]
+
+  [PlatformPkg (Board)] --> [SiliconPkg / SoCPkg]
+  [PlatformPkg (Board)] --> [ArmPlatformPkg]
+
+  [Drivers] --> [MdeModulePkg]
+  [Drivers] --> [ArmPkg]
+
+  [UEFI Applications] --> [MdePkg]
+
+  [PlatformPkg (Board)] --> [Drivers]
+  [PlatformPkg (Board)] --> [UEFI Applications]
+}
+@enduml

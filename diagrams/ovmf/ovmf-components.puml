@@ -1,0 +1,25 @@
+@startuml OVMF
+package "OVMF Firmware Stack" {
+
+  [OvmfPkg] --> [MdePkg]
+  [OvmfPkg] --> [MdeModulePkg]
+
+  [OvmfPkg] --> [UefiCpuPkg]
+  [OvmfPkg] --> [PcAtChipsetPkg]
+
+  [SEC Phase] --> [PEI Phase]
+  [PEI Phase] --> [DXE Phase]
+  [DXE Phase] --> [BDS Phase]
+
+  [PEI Phase] --> [PEI Modules]
+  [DXE Phase] --> [DXE Drivers]
+
+  [DXE Drivers] --> [Virtio Drivers]
+  [DXE Drivers] --> [QEMU Devices]
+
+  [BDS Phase] --> [Boot Manager]
+  [Boot Manager] --> [UEFI OS Loader]
+
+  [OvmfPkg] --> [Firmware Volume (FV)]
+}
+@enduml

@@ -1,0 +1,26 @@
+{
+  "name": "EDK2 UML Environment",
+
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "17"
+    }
+  },
+
+  "postCreateCommand": "apt-get update && apt-get install -y graphviz plantuml",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "jebbs.plantuml",
+        "ms-vscode.makefile-tools",
+        "yzhang.markdown-all-in-one"
+      ]
+    }
+  },
+
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind"
+}
