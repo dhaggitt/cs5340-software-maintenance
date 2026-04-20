@@ -17,10 +17,18 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y plantuml graphviz
 
       - name: Render diagrams
-        run: |
-          mkdir -p exports/png exports/svg
-          plantuml -tpng -o exports/png diagrams
-          plantuml -tsvg -o exports/svg diagrams
+          run: |
+            mkdir -p exports/png exports/svg
+
+            FILES=$(find . -type f \( -name "*.puml" -o -name "*.plantuml" \))
+
+            if [ -z "$FILES" ]; then
+              echo "No PlantUML files found!"
+              exit 1
+            fi
+
+            plantuml -tpng -o "$(pwd)/exports/png" $FILES
+            plantuml -tsvg -o "$(pwd)/exports/svg" $FILES
 
       - name: Debug file output
         run: |
