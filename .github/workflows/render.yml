@@ -22,10 +22,10 @@ jobs:
           find diagrams -name "*.puml" -exec plantuml -tpng -o ../exports/png {} \;
           find diagrams -name "*.puml" -exec plantuml -tsvg -o ../exports/svg {} \;
 
-      - name: Commit generated diagrams
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add exports/
-          git commit -m "Auto-render diagrams" || echo "No changes"
-          git push
+      - name: Upload generated diagrams
+        uses: actions/upload-artifact@v6
+        with:
+          name: diagram-artifacts
+          path: |
+            exports/png/*
+            exports/svg/*
